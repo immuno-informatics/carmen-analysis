@@ -1,3 +1,16 @@
+# Project-specific files and directories
+temp
+/figures/script-generated
+/data/subsidiary-files
+/data/neoantigen-db-main.tsv
+/data/nmdp-hla-frequencies/*.xlsx
+/data/data_classI_all_peptides.txt
+/*.pdf
+/*.html
+
+# VS Code local config
+.vscode
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
