@@ -1,7 +1,7 @@
 # Project-specific files and directories
-temp
-/figures/script-generated
-/data/subsidiary-files
+#temp
+#/figures/script-generated
+#/data/subsidiary-files
 # This might need a change later
 /data/neoantigen-db-main.tsv
 /data/nmdp-hla-frequencies/*.xlsx
