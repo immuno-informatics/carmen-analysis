@@ -2,6 +2,7 @@
 #temp
 #/figures/script-generated
 #/data/subsidiary-files
+#/data/to-be-published
 # This might need a change later
 /data/neoantigen-db-main.tsv
 /data/nmdp-hla-frequencies/*.xlsx
