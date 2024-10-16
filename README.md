@@ -19,9 +19,9 @@ conda activate carmen-analysis
 
 #### CARMEN Core Files
 
-The analysis pipeline runs on certain core CARMEN database files available at [HERE](https://google.com). Please download the following files:
+The analysis pipeline runs on certain core CARMEN database files available at [the main repository](https://doi.org/10.5281/zenodo.13928442). Please download the following files:
 
-1. neoantigen-db-main.tsv
+1. carmen-main.parquet
 2. x
 
 And subsequently move them to the *data* directory.
@@ -53,7 +53,7 @@ The result files to be published can be found in the *data/to-be-published* dire
 
 ### Peptide Clusters Characteristics Table
 
-The *data/to-be-published/carmen-peptide-clusters-characteristics.parquet* file is a comma-separated table representing peptide clusters created from dividing CARMEN samples through GibbsCluster with all their relevant characteristics (binding alleles, UMAP representation, frequency of occurrence in a population, etc.).
+The *data/to-be-published/carmen-peptide-clusters-characteristics.parquet* file is a comma-separated table representing peptide clusters created from dividing CARMEN samples through GibbsCluster with all their relevant characteristics (binding alleles, UMAP representation, frequency of occurrence in a population, etc.). Key column: **ID**.
 
 The table columns are as follows:
 
@@ -104,41 +104,41 @@ The *data/to-be-published/carmen-peptide-clusters-pssms.json* file is a suppleme
       "1":0.5,
       "2":0.011,
       "3":0.09,
-      ...,
+      //...,
       "9":0.188
     },
     "C":{
       "1":0.06,
       "2":0.2,
       "3":0.0009,
-      ...,
+      //...,
       "9":0.303
     },
-    ...,
+    //...,
     "Y":{
       "1":0.5,
       "2":0.011,
       "3":0.09,
-      ...,
+      //...,
       "9":0.188
     }
   },
   "P_2":{
     "A":{
       "1":0.23,
-      ...,
+      //...,
       "9":0.0988
     },
-    ...,
+    //...,
     "Y":{
       "1":0.641,
-      ...,
+      //...,
       "9":0.1
     }
   },
-  ...,
+  //...,
   "P_N":{
-    ...
+    //...
   }
 }
 ```
@@ -153,6 +153,7 @@ import pandas as pd
 with open("data/to-be-published/carmen-peptide-clusters-pssms.json", "r") as handle:
     pssms = json.load(handle)
 
+all_peptide_cluster_ids = pssms.keys()
 peptide_cluster_id = "P_1"
 selected_pssm = pd.DataFrame(pssms[peptide_cluster_id])
 ```
