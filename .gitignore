@@ -3,8 +3,9 @@
 #/figures/script-generated
 #/data/subsidiary-files
 #/data/to-be-published
-# This might need a change later
-/data/neoantigen-db-main.tsv
+#/data/neoantigen-db-main.tsv
+/data/carmen-main.parquet
+/data/carmen-hla-sequences.parquet
 /data/nmdp-hla-frequencies/*.xlsx
 /data/data_classI_all_peptides.txt
 /*.pdf
