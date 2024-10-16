@@ -57,6 +57,14 @@ Run *scripts/1_set_up_env.py* script.
 python scripts/1_set_up_env.py
 ```
 
+### 2. Prepare GibbsCluster Samples
+
+Run *scripts/2_prep_gibbscluster_samples.py* script.
+
+```bash
+python scripts/2_prep_gibbscluster_samples.py
+```
+
 ### X. Asd
 
 Qwe.
