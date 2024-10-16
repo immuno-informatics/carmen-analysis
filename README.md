@@ -1,8 +1,10 @@
 # CARMEN Database Analysis
 
-CARMEN database analysis with data and figure generation for the upcoming paper
+CARMEN database analysis with data and figure generation for the [upcoming](https://www.google.com) paper
 
 ## Setup
+
+Some of the pipeline files and file processing descriptions included assume work in a Linux environment.
 
 ### Python Environment
 
@@ -51,7 +53,7 @@ To be able to run the entire analysis and produce its results (data files, figur
 
 ### 1. Create Working and Subsidiary Directories
 
-Run *scripts/1_set_up_env.py* script.
+Run *scripts/1_set_up_env.py* script:
 
 ```bash
 python scripts/1_set_up_env.py
@@ -59,10 +61,39 @@ python scripts/1_set_up_env.py
 
 ### 2. Prepare GibbsCluster Samples
 
-Run *scripts/2_prep_gibbscluster_samples.py* script.
+Run *scripts/2_prep_gibbscluster_samples.py* script:
 
 ```bash
 python scripts/2_prep_gibbscluster_samples.py
+```
+
+### 3. Run GibbsCluster Over the Samples
+
+Because of the big number of samples and peptides to analyze, here we utilized a computing cluster with the [Slurm Workload Manager](https://slurm.schedmd.com) system.
+
+There are two script files used to produce [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) results:
+
+- *scripts/gibbscluster-sbatch.sh*&mdash;sbatch script with configuration for a singular Slurm job of running [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) with given arguments
+- *scripts/3_gibbscluster-spawn-jobs.sh*&mdash;Bash script that iterates over input tables and, for each, creates a Slurm job to run it through [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0)
+
+The entry point is the *scripts/3_gibbscluster-spawn-jobs.sh* script where you set up all necessary input and output configuration. Remember to set up a proper job configuration in *scripts/gibbscluster-sbatch.sh*, appropriate for your [Slurm](https://slurm.schedmd.com) system configuration, and then run the main script:
+
+```bash
+bash scripts/3_gibbscluster-spawn-jobs.sh
+```
+
+In case there is no access to a [Slurm](https://slurm.schedmd.com) system, you can try to run [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) serially (or adapt a similar way):
+
+```bash
+input_dir="/home/ap/temp/tp"
+
+file_list=$(find $input_dir -maxdepth 1 -type f -name "*.csv")
+
+for f in ${file_list[@]}; do
+  f_name=$(basename $f)
+  echo $f
+  echo $f_name
+done
 ```
 
 ### X. Asd
