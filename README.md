@@ -108,7 +108,7 @@ The result files to be published can be found in the *data/to-be-published* dire
 
 ### Peptide Clusters Characteristics Table
 
-The *data/to-be-published/carmen-peptide-clusters-characteristics.parquet* file is a comma-separated table representing peptide clusters created from dividing CARMEN samples through GibbsCluster with all their relevant characteristics (binding alleles, UMAP representation, frequency of occurrence in a population, etc.). Key column: **ID**.
+The *data/to-be-published/carmen-peptide-clusters-characteristics.parquet* file is a [Apache Parquet](https://parquet.apache.org) data file table representing peptide clusters created from dividing CARMEN samples through [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) with all their relevant characteristics (binding alleles, UMAP representation, frequency of occurrence in a population, etc.). Key column: **ID**.
 
 The table columns are as follows:
 
