@@ -69,6 +69,8 @@ python scripts/2_prep_gibbscluster_samples.py
 
 ### 3. Run GibbsCluster Over the Samples
 
+Cluster peptides within samples using [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0).
+
 Because of the big number of samples and peptides to analyze, here we utilized a computing cluster with the [Slurm Workload Manager](https://slurm.schedmd.com) system.
 
 There are two script files used to produce [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) results:
