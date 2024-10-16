@@ -192,7 +192,7 @@ The *data/to-be-published/carmen-peptide-clusters-pssms.json* file is a suppleme
     }
   },
   //...,
-  "P_N":{
+  "P_X":{
     //...
   }
 }
