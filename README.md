@@ -45,7 +45,21 @@ Partial data from the [MHC Motif Atlas class I alleles](http://mhcmotifatlas.org
 
 ## How to Run
 
-Step-by-step instruction how to go from the source CARMEN files to all the results.
+To be able to run the entire analysis and produce its results (data files, figures, etc.) we need to set-up and run specific scripts in a particular order. Please follow the instructions below.
+
+**Always remember to review all paths in the scripts and make changes appropriate to your own system's environment.**
+
+### 1. Create Working and Subsidiary Directories
+
+Run *scripts/1_set_up_env.py* script.
+
+```bash
+python scripts/1_set_up_env.py
+```
+
+### X. Asd
+
+Qwe.
 
 ## Published Data Files
 
