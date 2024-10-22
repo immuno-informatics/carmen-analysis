@@ -12,6 +12,9 @@ data_subs_dir = data_dir.joinpath("subsidiary-files")
 data_gibbs_dir = data_subs_dir.joinpath("gibbscluster")
 samples_peptides_dir = data_subs_dir.joinpath("samples-peptides")
 
+data_gibbs_dir.mkdir(parents=True, exist_ok=True)
+samples_peptides_dir.mkdir(parents=True, exist_ok=True)
+
 # split the files
 
 df = pd.read_csv("neo_uniq_sample_peptide_list.csv", sep="\t")

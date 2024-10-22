@@ -1,9 +1,9 @@
 # Project-specific files and directories
-#temp
-#/figures/script-generated
-#/data/subsidiary-files
-#/data/to-be-published
-#/data/neoantigen-db-main.tsv
+temp
+figures
+# /figures/script-generated
+/data/subsidiary-files
+/data/to-be-published
 /data/carmen-main.parquet
 /data/carmen-hla-sequences.parquet
 /data/nmdp-hla-frequencies/*.xlsx
