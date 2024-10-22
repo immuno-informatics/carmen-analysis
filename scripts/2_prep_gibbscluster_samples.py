@@ -10,10 +10,10 @@ data_dir = project_dir.joinpath("data")
 data_subs_dir = data_dir.joinpath("subsidiary-files")
 
 data_gibbs_dir = data_subs_dir.joinpath("gibbscluster")
-samples_peptides_dir = data_subs_dir.joinpath("samples-peptides")
+samples_peptides_dir = data_subs_dir.joinpath("peptides-per-sample")
 
-data_gibbs_dir.mkdir(parents=True, exist_ok=True)
-samples_peptides_dir.mkdir(parents=True, exist_ok=True)
+# data_gibbs_dir.mkdir(parents=True, exist_ok=True)
+# samples_peptides_dir.mkdir(parents=True, exist_ok=True)
 
 # split the files
 
