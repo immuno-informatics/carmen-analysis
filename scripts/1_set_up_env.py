@@ -8,9 +8,9 @@ data_dir = project_dir.joinpath("data")
 data_pub_dir = data_dir.joinpath("to-be-published")
 data_subs_dir = data_dir.joinpath("subsidiary-files")
 
-data_gibbs_dir = data_subs_dir.joinpath("gibbscluster")
+gibbs_dir = data_subs_dir.joinpath("gibbscluster")
 
-samples_peptides_dir = data_subs_dir.joinpath("peptides-per-sample")
+peps_per_sample_dir = data_subs_dir.joinpath("peptides-per-sample")
 
 figures_dir = project_dir.joinpath("figures")
 figures_gen_dir = figures_dir.joinpath("script-generated")
@@ -22,8 +22,8 @@ temp_dir = project_dir.joinpath("temp")
 extra_dirs = [
     data_pub_dir,
     data_subs_dir,
-    data_gibbs_dir,
-    samples_peptides_dir,
+    gibbs_dir,
+    peps_per_sample_dir,
     figures_main_dir,
     figures_supp_dir,
     temp_dir,

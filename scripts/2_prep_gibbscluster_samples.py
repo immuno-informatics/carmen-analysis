@@ -9,8 +9,8 @@ project_dir = Path("/data/teamgdansk/apalkowski/carmen-analysis")
 data_dir = project_dir.joinpath("data")
 data_subs_dir = data_dir.joinpath("subsidiary-files")
 
-data_gibbs_dir = data_subs_dir.joinpath("gibbscluster")
-samples_peptides_dir = data_subs_dir.joinpath("peptides-per-sample")
+gibbs_dir = data_subs_dir.joinpath("gibbscluster")
+peps_per_sample_dir = data_subs_dir.joinpath("peptides-per-sample")
 
 # data_gibbs_dir.mkdir(parents=True, exist_ok=True)
 # samples_peptides_dir.mkdir(parents=True, exist_ok=True)
@@ -24,5 +24,5 @@ unique_keys = df["Sample_name"].unique()
 
 for unique_key in unique_keys:
     grouped_by_sample.get_group(unique_key).to_csv(
-        samples_peptides_dir.joinpath(unique_key, ".csv"), index=False
+        peps_per_sample_dir.joinpath(unique_key, ".csv"), index=False
     )
