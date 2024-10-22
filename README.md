@@ -69,7 +69,7 @@ python scripts/2_prep_gibbscluster_samples.py
 
 ### 3. Run GibbsCluster Over the Samples
 
-Cluster peptides within samples using [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0).
+Cluster peptides within samples using [GibbsCluster-2.0](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0).
 
 Because of the big number of samples and peptides to analyze, here we utilized a computing cluster with the [Slurm Workload Manager](https://slurm.schedmd.com) system.
 
@@ -89,7 +89,7 @@ In case there is no access to a [Slurm](https://slurm.schedmd.com) system, you c
 ```bash
 input_dir="/home/ap/temp/tp"
 
-file_list=$(find $input_dir -maxdepth 1 -type f -name "*.csv")
+file_list=$(find $input_dir -maxdepth 1 -type f -name "*.tsv")
 
 for f in ${file_list[@]}; do
   f_name=$(basename $f)
