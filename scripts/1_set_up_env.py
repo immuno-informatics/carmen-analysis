@@ -1,4 +1,4 @@
-"""Set up all working directories before running the pipeline."""
+"""Set up all main working directories before running the pipeline."""
 
 from pathlib import Path
 
