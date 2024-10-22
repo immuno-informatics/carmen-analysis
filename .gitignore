@@ -8,8 +8,6 @@ figures
 /data/carmen-hla-sequences.parquet
 /data/nmdp-hla-frequencies/*.xlsx
 /data/data_classI_all_peptides.txt
-/*.pdf
-/*.html
 
 # VS Code local config
 .vscode
