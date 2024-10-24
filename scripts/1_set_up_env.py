@@ -12,6 +12,8 @@ gibbs_dir = data_subs_dir.joinpath("gibbscluster")
 
 peps_per_sample_dir = data_subs_dir.joinpath("peptides-per-sample")
 
+random_pep_dir = data_subs_dir.joinpath("random-peptides")
+
 figures_dir = project_dir.joinpath("figures")
 figures_gen_dir = figures_dir.joinpath("script-generated")
 figures_main_dir = figures_gen_dir.joinpath("main-panels")
@@ -27,6 +29,7 @@ extra_dirs = [
     figures_main_dir,
     figures_supp_dir,
     temp_dir,
+    random_pep_dir,
 ]
 
 for ed in extra_dirs:

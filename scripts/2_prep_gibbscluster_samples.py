@@ -9,20 +9,42 @@ project_dir = Path("/data/teamgdansk/apalkowski/carmen-analysis")
 data_dir = project_dir.joinpath("data")
 data_subs_dir = data_dir.joinpath("subsidiary-files")
 
-gibbs_dir = data_subs_dir.joinpath("gibbscluster")
 peps_per_sample_dir = data_subs_dir.joinpath("peptides-per-sample")
 
-# data_gibbs_dir.mkdir(parents=True, exist_ok=True)
-# samples_peptides_dir.mkdir(parents=True, exist_ok=True)
+db_main_file = data_dir.joinpath("carmen-main.parquet")
 
-# split the files
+# Extract "Sample_name" and "Peptide" columns from the main DB
 
-df = pd.read_csv("neo_uniq_sample_peptide_list.csv", sep="\t")
+db_main = pd.read_parquet(db_main_file)
 
-grouped_by_sample = df.groupby(["Sample_name"])
-unique_keys = df["Sample_name"].unique()
+pep_sample = db_main[["Sample_name", "Peptide"]]
+pep_sample = (
+    pep_sample.groupby("Peptide")["Sample_name"]
+    .apply(lambda x: ",".join(x))
+    .reset_index()
+)
 
-for unique_key in unique_keys:
-    grouped_by_sample.get_group(unique_key).to_csv(
-        peps_per_sample_dir.joinpath(unique_key, ".csv"), index=False
-    )
+del db_main
+
+# Save .tsv files with a peptide list per each sample
+
+# Split the 'Sample_name' column by commas, then explode it into individual rows
+pep_sample["Sample_name"] = pep_sample["Sample_name"].str.split(",")
+pep_sample = pep_sample.explode("Sample_name")
+
+# Clean any leading/trailing spaces from 'Sample_name'
+pep_sample["Sample_name"] = pep_sample["Sample_name"].str.strip()
+
+# Group the DataFrame by 'Sample_name'
+grouped_by_sample = pep_sample.groupby("Sample_name")
+
+# Iterate over each unique 'Sample_name' and save the corresponding peptides
+for sample_name, group in grouped_by_sample:
+    # Clean up the sample name to ensure it's a valid file name
+    cleaned_sample_name = sample_name.replace("/", "_").replace(" ", "_")
+
+    # Create a TSV file for each sample, only containing the 'Peptide' column
+    output_file = peps_per_sample_dir.joinpath(f"{cleaned_sample_name}.tsv")
+
+    # Save only the 'Peptide' column for the current sample
+    group[["Peptide"]].to_csv(output_file, sep="\t", header=False, index=False)
