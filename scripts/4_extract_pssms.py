@@ -7,6 +7,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from tqdm import tqdm
 
 project_dir = Path("/path/to/carmen-analysis")
 
@@ -27,7 +28,7 @@ sample_dirs = [
     d for d in gibbs_dir.iterdir() if d.is_dir() and d.name.startswith("sample_")
 ]
 
-for s_dir in sample_dirs:
+for s_dir in tqdm(sample_dirs):
     sample_dir_name = s_dir.name
     sample_name = sample_dir_name.split(".tsv.")[0]
 
