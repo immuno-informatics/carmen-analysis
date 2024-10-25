@@ -89,7 +89,7 @@ Because of the big number of samples and peptides to analyze, here we utilized a
 There are two script files used to produce [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) results:
 
 - *scripts/gibbscluster-sbatch.sh*&mdash;sbatch script with configuration for a singular Slurm job of running [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) with given arguments
-- *scripts/3_gibbscluster-spawn-jobs.sh*&mdash;Bash script that iterates over input tables and, for each, creates a Slurm job to run it through [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0)
+- *scripts/3_gibbscluster-spawn-jobs.sh*&mdash;Bash script that iterates over input files and, for each, creates a Slurm job to run it through [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0)
 
 The entry point is the *scripts/3_gibbscluster-spawn-jobs.sh* script where you set up all necessary input and output configuration. Remember to set up a proper job configuration in *scripts/gibbscluster-sbatch.sh*, appropriate for your [Slurm](https://slurm.schedmd.com) system configuration, and then run the main script:
 
