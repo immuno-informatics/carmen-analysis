@@ -1,10 +1,10 @@
-"""."""
+"""Divide and organize all samples and their peptides for GibbsCluster."""
 
 from pathlib import Path
 
 import pandas as pd
 
-project_dir = Path("/data/teamgdansk/apalkowski/carmen-analysis")
+project_dir = Path("/path/to/carmen-analysis")
 
 data_dir = project_dir.joinpath("data")
 data_subs_dir = data_dir.joinpath("subsidiary-files")
