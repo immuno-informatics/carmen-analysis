@@ -1,7 +1,6 @@
 # Project-specific files and directories
 temp
 figures
-# /figures/script-generated
 /data/subsidiary-files
 /data/to-be-published
 /data/carmen-main.parquet

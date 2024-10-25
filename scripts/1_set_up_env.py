@@ -2,13 +2,14 @@
 
 from pathlib import Path
 
+# project_dir = Path("/path/to/carmen-analysis")
 project_dir = Path("/data/teamgdansk/apalkowski/carmen-analysis")
 
 data_dir = project_dir.joinpath("data")
 data_pub_dir = data_dir.joinpath("to-be-published")
 data_subs_dir = data_dir.joinpath("subsidiary-files")
 
-gibbs_dir = data_subs_dir.joinpath("gibbscluster")
+gibbs_dir = data_subs_dir.joinpath("gibbscluster-results")
 
 peps_per_sample_dir = data_subs_dir.joinpath("peptides-per-sample")
 

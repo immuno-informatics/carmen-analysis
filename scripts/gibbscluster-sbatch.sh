@@ -11,11 +11,13 @@
 
 #SBATCH --time=72:00:00
 
-#SBATCH --output="/path/to/the/main/project/dir/temp/slurm-logs/%x-%j.out"
-#SBATCH --error="/path/to/the/main/project/dir/temp/slurm-logs/%x-%j.err"
+#SBATCH --output="/path/to/carmen-analysis/temp/slurm-logs/%x-%j.out"
+#SBATCH --error="/path/to/carmen-analysis/temp/slurm-logs/%x-%j.err"
 
 input_file=$1
+output_dir=$2
+output_file=$3
 
 f_name=$(basename $input_file)
 
-gibbscluster -f $input_file -P $f_name".out-len-9" -T -j 10 -g3-7 -l9 -S1 > "output_file_"$f_name".csv.out"
+gibbscluster -f $input_file -R $output_dir -P $f_name".out-len-9" -T -j 10 -g3-7 -l9 -S1 > $output_file
