@@ -4,13 +4,15 @@ CARMEN database analysis with data and figure generation for the [upcoming](http
 
 ## Setup
 
+**ADD INFO ABOUT CLONING ETC.**
+
 Some of the pipeline files and file processing descriptions included assume work in a Linux environment.
 
 ### Python Environment
 
 We suggest to install [Conda](https://docs.anaconda.com/miniconda) to handle Python operations.
 
-The described pipeline used multiple Python environments to handle different parts of the analysis while preparing the results. Details of those environments have been saved as [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) environment specifications to the *environment-\*.yml* files. Please follow in detail the instructions included in the [How to Run the Analysis](#how-to-run-the-analysis) section to achieve reproducibility.
+The described pipeline used multiple Python environments to handle different parts of the analysis while preparing the results. Details of those environments have been saved as [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) environment specifications to `environment-\*.yml` files. Please follow in detail the instructions included in the [How to Run the Analysis](#how-to-run-the-analysis) section to achieve reproducibility.
 
 ### Required Databases
 
@@ -20,7 +22,7 @@ The analysis pipeline requires certain external files to produce all results. Pl
 
 The analysis pipeline runs on certain core CARMEN database files available at [the main repository](https://doi.org/10.5281/zenodo.13928442). Please download the following files:
 
-1. carmen-main.parquet&mdash;the main part of the database. Contains a dataset gathered from standardized reprocessing of 72 publicly available immunopeptidomic mass spectrometry datasets. Contains all gathered peptides and their annotations.
+1. `carmen-main.parquet`&mdash;the main part of the database. Contains a dataset gathered from standardized reprocessing of 72 publicly available immunopeptidomic mass spectrometry datasets. Contains all gathered peptides and their annotations.
 2. x
 
 And subsequently move them to the *data* directory.
@@ -29,10 +31,10 @@ And subsequently move them to the *data* directory.
 
 Certain aspects of the analysis and its products posses a degree of stochasticity that could alter the results in a noticeable way when run again. Because of that a number of files which are necessary for subsequent steps of the analysis were made available at the [CARMEN analysis paper repository](https://google.com) for reproducibility. You may download the following files to reproduce the analysis:
 
-1. umap-reducer-main.pickle&mdash;serialized Python object that represents a trained UMAP from the `umap-learn` package.
+1. `umap-reducer-main.pickle`&mdash;serialized Python object that represents a trained UMAP from the `umap-learn` package.
 2. x
 
-And subsequently move them to the *data/to-be-published* directory.
+And subsequently move them to the `data/to-be-published` directory.
 
 #### NMDP Registry Haplotype Frequencies
 
@@ -40,16 +42,16 @@ This pipeline is using a set of tables indicating frequencies of HLA class I all
 
 The files used within the pipeline are as follows (names as downloaded from the website):
 
-1. A.xlsx
-2. B.xlsx
-3. C.xlsx
-4. A\~C\~B.xlsx
+1. `A.xlsx`
+2. `B.xlsx`
+3. `C.xlsx`
+4. `A\~C\~B.xlsx`
 
-To be able to run the analysis and further process all necessary data, please download the database and put the above files into the *data/nmdp-hla-frequencies* directory.
+To be able to run the analysis and further process all necessary data, please download the database and put the above files into the `data/nmdp-hla-frequencies` directory.
 
 #### MHC Motif Atlas
 
-Partial data from the [MHC Motif Atlas class I alleles](http://mhcmotifatlas.org/class1) database is used during the analysis. Please use the "Download Data" button to access the "All Ligands" option and save the resulting file. The file *data_classI_all_peptides.txt* (name as downloaded from the website) should be moved to the *data* directory.
+Partial data from the [MHC Motif Atlas class I alleles](http://mhcmotifatlas.org/class1) database is used during the analysis. Please use the "Download Data" button to access the "All Ligands" option and save the resulting file. The file `data_classI_all_peptides.txt` (name as downloaded from the website) should be moved to the `data` directory.
 
 ## How to Run the Analysis
 
@@ -57,24 +59,24 @@ To be able to run the entire analysis and produce its results (data files, figur
 
 **Always remember to review all paths in the scripts and make changes appropriate to your own system's environment.**
 
-### 1. Create Working and Subsidiary Directories
+### 1. Create Working Directories
 
-First, create a new Python environment based on a proper specification (*environment-1-6.yml*) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-1-6` to anything else):
+First, create a new Python environment based on a proper specification (`environment-1-6.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-1-6` to anything else):
 
 ```bash
 conda env create --name carmen-analysis-1-6 --file environment-1-6.yml --yes
 conda activate carmen-analysis-1-6
 ```
 
-After which, run the *scripts/1_set_up_env.py* script:
+After which, run the `scripts/1_set_up_env.py` script:
 
 ```bash
 python scripts/1_set_up_env.py
 ```
 
-### 2. Prepare GibbsCluster Samples
+### 2. Prepare Samples for GibbsCluster
 
-Run *scripts/2_prep_gibbscluster_samples.py* script:
+Run `scripts/2_prep_gibbscluster_samples.py` script:
 
 ```bash
 python scripts/2_prep_gibbscluster_samples.py
@@ -88,10 +90,10 @@ Because of the big number of samples and peptides to analyze, here we utilized a
 
 There are two script files used to produce [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) results:
 
-- *scripts/gibbscluster-sbatch.sh*&mdash;sbatch script with configuration for a singular Slurm job of running [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) with given arguments
-- *scripts/3_gibbscluster-spawn-jobs.sh*&mdash;Bash script that iterates over input files and, for each, creates a Slurm job to run it through [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0)
+- `scripts/gibbscluster-sbatch.sh`&mdash;sbatch script with configuration for a singular Slurm job of running [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) with given arguments
+- `scripts/3_gibbscluster-spawn-jobs.sh`&mdash;Bash script that iterates over input files and, for each, creates a Slurm job to run it through [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0)
 
-The entry point is the *scripts/3_gibbscluster-spawn-jobs.sh* script where you set up all necessary input and output configuration. Remember to set up a proper job configuration in *scripts/gibbscluster-sbatch.sh*, appropriate for your [Slurm](https://slurm.schedmd.com) system configuration, and then run the main script:
+The entry point is the `scripts/3_gibbscluster-spawn-jobs.sh` script where you set up all necessary input and output configuration. Remember to set up a proper job configuration in `scripts/gibbscluster-sbatch.sh`, appropriate for your [Slurm](https://slurm.schedmd.com) system configuration, and then run the main script:
 
 ```bash
 bash scripts/3_gibbscluster-spawn-jobs.sh
@@ -117,7 +119,7 @@ done
 
 ### 4. Extract PSSMs of Clustered Peptides
 
-Extract position-specific scoring matrices from [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) results. Run *scripts/4_extract_pssms.py* script:
+Extract position-specific scoring matrices from [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) results. Run `scripts/4_extract_pssms.py` script:
 
 ```bash
 python scripts/4_extract_pssms.py
@@ -127,23 +129,23 @@ python scripts/4_extract_pssms.py
 
 Take the position-specific scoring matrices calculated for clustered peptides from samples and create 2-dimensional embeddings using a UMAP model. Next, group those representations using a clustering algorithm.
 
-To use the UMAP model trained and saved by the authors, follow the instructions in the [CARMEN Analysis Additional Files](#carmen-analysis-additional-files) section for the *umap-reducer-main.pickle* file, and then run the *scripts/5_umap_embeddings_and_labels.py* script:
+To use the UMAP model trained and saved by the authors, follow the instructions in the [CARMEN Analysis Additional Files](#carmen-analysis-additional-files) section for the `umap-reducer-main.pickle` file, and then run the `scripts/5_umap_embeddings_and_labels.py` script:
 
 ```bash
 python scripts/5_umap_embeddings_and_labels.py
 ```
 
-The exact way how to re-create (or re-train) the UMAP model is contained in the *scripts/umap_model_main.py* script. Running this script will overwrite any saved model. Please be advised that recreating the UMAP model on a different machine setup may alter a significant portion of the results:
+The exact way how to re-create (or re-train) the UMAP model is contained in the `scripts/umap_model_main.py` script. Running this script will overwrite any saved model. Please be advised that recreating the UMAP model on a different machine setup may alter a significant portion of the results:
 
 ```bash
 python scripts/umap_model_main.py
 ```
 
-After creating a new model run the *scripts/5_umap_embeddings_and_labels.py* script to calculate new embeddings and labels.
+After creating a new model run the `scripts/5_umap_embeddings_and_labels.py` script to calculate new embeddings and labels.
 
 ### 6. Process the MHC Motif Atlas Peptides
 
-Filter-out non-human alleles and peptides of lengths other than 9 amino acids, and then create 2-dimensional embeddings for each unique allele by using the UMAP model that was previously trained on peptides from CARMEN samples. Run the *scripts/6_process_motif_atlas_peptides.py* script:
+Filter-out non-human alleles and peptides of lengths other than 9 amino acids, and then create 2-dimensional embeddings for each unique allele by using the UMAP model that was previously trained on peptides from CARMEN samples. Run the `scripts/6_process_motif_atlas_peptides.py` script:
 
 ```bash
 python scripts/6_process_motif_atlas_peptides.py
@@ -151,7 +153,7 @@ python scripts/6_process_motif_atlas_peptides.py
 
 ### 7. OMG
 
-First, create a new Python environment based on a proper specification (*environment-7-X.yml*) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-7-X` to anything else); deactivate the previous environment if you have it loaded:
+First, create a new Python environment based on a proper specification (`environment-7-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-7-X` to anything else); deactivate the previous environment if you have it loaded:
 
 ```bash
 # Run this line if you have another Conda environment loaded:
@@ -167,11 +169,11 @@ Qwe.
 
 ## Published Data Files
 
-The result files to be published can be found in the *data/to-be-published* directory.
+The result files to be published can be found in the `data/to-be-published` directory.
 
 ### Peptide Clusters Characteristics Table
 
-The *data/to-be-published/carmen-peptide-clusters-characteristics.parquet* file is an [Apache Parquet](https://parquet.apache.org) data file table representing peptide clusters created from dividing CARMEN samples through [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) with all their relevant characteristics (binding alleles, UMAP representation, frequency of occurrence in a population, etc.). Key column: **ID**.
+The `data/to-be-published/carmen-peptide-clusters-characteristics.parquet` file is an [Apache Parquet](https://parquet.apache.org) data file table representing peptide clusters created from dividing CARMEN samples through [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) with all their relevant characteristics (binding alleles, UMAP representation, frequency of occurrence in a population, etc.). Key column: **ID**.
 
 The table columns are as follows:
 
@@ -213,7 +215,7 @@ The table columns are as follows:
 
 ### Peptide Clusters PSSMs
 
-The *data/to-be-published/carmen-peptide-clusters-pssms.json* file is a supplement to the [peptide clusters characteristics table](#peptide-clusters-characteristics-table). Its structure is a hierarchical JSON representation of PSSMs for each of the clustered peptides (calculated based only on 9-mer peptides contained within). At the first level, P\_*\<X\>* represents individual peptide cluster IDs. Inside each cluster, the letters (A, C, ..., Y) represent the 20 amino acids. For each amino acid, there is a set of key-value pairs where the keys (1, 2, ..., 9) represent specific positions in the peptide sequence, and the values represent frequency for that amino acid at the corresponding position. An example of that structure is presented below.
+The `data/to-be-published/carmen-peptide-clusters-pssms.json` file is a supplement to the [peptide clusters characteristics table](#peptide-clusters-characteristics-table). Its structure is a hierarchical JSON representation of PSSMs for each of the clustered peptides (calculated based only on 9-mer peptides contained within). At the first level, P\_*\<X\>* represents individual peptide cluster IDs. Inside each cluster, the letters (A, C, ..., Y) represent the 20 amino acids. For each amino acid, there is a set of key-value pairs where the keys (1, 2, ..., 9) represent specific positions in the peptide sequence, and the values represent frequency for that amino acid at the corresponding position. An example of that structure is presented below.
 
 ```json
 {
