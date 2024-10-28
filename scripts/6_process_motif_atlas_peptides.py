@@ -7,8 +7,7 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-# project_dir = Path("/path/to/carmen-analysis")
-project_dir = Path("/data/teamgdansk/apalkowski/carmen-analysis")
+project_dir = Path("/path/to/carmen-analysis")
 
 data_dir = project_dir.joinpath("data")
 data_pub_dir = data_dir.joinpath("to-be-published")
@@ -658,6 +657,8 @@ motif_atlas_alleles[main_motif_atlas_emb_col_peps] = motif_atlas_alleles[
     main_motif_atlas_emb_col_peps
 ].apply(lambda x: sorted(set(x)))
 
+motif_atlas_alleles = motif_atlas_alleles.reset_index()
+
 # Select PSSM type
 halfbits = True
 hobohm_cluster = True
@@ -687,10 +688,10 @@ embedding.columns = [main_motif_atlas_emb_col_x, main_motif_atlas_emb_col_y]
 
 # Gather everything and save the table
 
-motif_atlas_alleles = motif_atlas_alleles[main_motif_atlas_emb_col_peps].apply(
-    lambda x: main_motif_atlas_emb_list_sep.join(x)
-)
+motif_atlas_alleles[main_motif_atlas_emb_col_peps] = motif_atlas_alleles[
+    main_motif_atlas_emb_col_peps
+].apply(lambda x: main_motif_atlas_emb_list_sep.join(x))
 
-# motif_atlas_alleles = pd.concat([motif_atlas_alleles, embedding])
+motif_atlas_alleles = pd.concat([motif_atlas_alleles, embedding], axis=1)
 
-# motif_atlas_alleles.to_csv(main_motif_atlas_emb_file, sep="\t", index=False)
+motif_atlas_alleles.to_csv(main_motif_atlas_emb_file, sep="\t", index=False)
