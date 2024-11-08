@@ -167,7 +167,7 @@ conda activate carmen-analysis-7-X
 
 Qwe.
 
-## Published Data Files
+## Published Files
 
 The result files to be published can be found in the `data/to-be-published` directory.
 
@@ -277,3 +277,7 @@ all_peptide_cluster_ids = pssms.keys()
 peptide_cluster_id = "P_1"
 selected_pssm = pd.DataFrame(pssms[peptide_cluster_id])
 ```
+
+### UMAP Model Object
+
+The `data/to-be-published/umap-reducer-main.pickle` file contains a serialized Python object that represents a UMAP model (from the `umap-learn` package) trained on position-specific scoring matrices calculated for peptides from samples clustered by [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0).
