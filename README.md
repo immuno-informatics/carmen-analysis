@@ -151,7 +151,7 @@ Filter-out non-human alleles and peptides of lengths other than 9 amino acids, a
 python scripts/6_process_motif_atlas_peptides.py
 ```
 
-### 7. OMG
+### 7. ML Model
 
 First, create a new Python environment based on a proper specification (`environment-7-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-7-X` to anything else); deactivate the previous environment if you have it loaded:
 
@@ -162,6 +162,26 @@ conda deactivate
 conda env create --name carmen-analysis-7-X --file environment-7-X.yml --yes
 conda activate carmen-analysis-7-X
 ```
+
+### X. Han's Stuff
+
+First, create a new Python environment based on a proper specification (`environment-X-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-X-X` to anything else); deactivate the previous environment if you have it loaded:
+
+```bash
+# Run this line if you have another Conda environment loaded:
+conda deactivate
+
+conda env create --name carmen-analysis-X-X --file environment-X-X.yml --yes
+conda activate carmen-analysis-X-X
+```
+
+### X. Aleksander's Stuff
+
+Qwe.
+
+### X. Michał's Stuff
+
+Qwe.
 
 ### X. Asd
 
