@@ -1,16 +1,35 @@
 # CARMEN Database Analysis
 
-CARMEN database analysis with data and figure generation for the [upcoming](https://www.google.com) paper
+[![CARMEN immunopeptidomics database](https://zenodo.org/badge/DOI/10.5281/zenodo.13928441.svg)](https://doi.org/10.5281/zenodo.13928441)
+
+CARMEN database analysis with data and figure generation for the [upcoming](https://www.google.com) paper.
 
 ## Setup
 
-**ADD INFO ABOUT CLONING ETC.**
+Please follow these steps to obtain the code to run the pipeline:
+
+- Clone this repository and `cd` into it.
+
+  ```bash
+  git clone https://github.com/immuno-informatics/carmen-analysis.git
+  cd ./carmen-analysis
+  ```
+
+  or
+
+- [Download](https://github.com/immuno-informatics/carmen-analysis/archive/refs/heads/main.zip) contents of this repository, unzip it, and `cd` into it.
+
+  ```bash
+  wget https://github.com/immuno-informatics/carmen-analysis/archive/refs/heads/main.zip
+  unzip carmen-analysis-main.zip
+  cd ./carmen-analysis-main
+  ```
 
 Some of the pipeline files and file processing descriptions included assume work in a Linux environment.
 
 ### Python Environment
 
-We suggest to install [Conda](https://docs.anaconda.com/miniconda) to handle Python operations.
+**The pipeline requires a working [Python](https://www.python.org) installation**. We suggest to install [Conda](https://docs.anaconda.com/miniconda) to handle Python operations.
 
 The described pipeline used multiple Python environments to handle different parts of the analysis while preparing the results. Details of those environments have been saved as [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) environment specifications to `environment-*.yml` files. Please follow in detail the instructions included in the [How to Run the Analysis](#how-to-run-the-analysis) section to achieve reproducibility.
 
@@ -165,6 +184,8 @@ conda activate carmen-analysis-7-X
 
 ### X. Han's Stuff
 
+Population-based simulation of MHC class I antigen presentation using [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1).
+
 First, create a new Python environment based on a proper specification (`environment-X-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-X-X` to anything else); deactivate the previous environment if you have it loaded:
 
 ```bash
@@ -175,15 +196,13 @@ conda env create --name carmen-analysis-X-X --file environment-X-X.yml --yes
 conda activate carmen-analysis-X-X
 ```
 
+Open the `scripts/XXXXXX.ipynb` Jupyter notebook and follow its structure and instructions.
+
 ### X. Aleksander's Stuff
 
 Qwe.
 
 ### X. Michał's Stuff
-
-Qwe.
-
-### X. Asd
 
 Qwe.
 
@@ -301,3 +320,103 @@ selected_pssm = pd.DataFrame(pssms[peptide_cluster_id])
 ### UMAP Model Object
 
 The `data/to-be-published/umap-reducer-main.pickle` file contains a serialized Python object that represents a UMAP model (from the `umap-learn` package) trained on position-specific scoring matrices calculated for peptides from samples clustered by [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0).
+
+## Citing This Work
+
+Please cite the described work and relevant paper as:
+
+```bibtex
+@article{carmen-analysis,
+  author  = {Surname, Name},
+  title   = {{CARMEN Whatever}},
+  journal = {X},
+  year    = {X},
+  volume  = {X},
+  number  = {X},
+  pages   = {X--X},
+  doi     = {X}
+}
+```
+
+Also, please add citations for the main CARMEN database and other files produced by said pipeline as:
+
+```bibtex
+@dataset{carmen-db,
+  author    = {Kallor, Ashwin Adrian and Alfaro, Javier Antonio and Daghir-Wojtkowiak, Emilia and Palkowski, Aleksander and Waleron, Michał},
+  title     = {{CARMEN immunopeptidomics database}},
+  year      = {2024},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.13928441},
+  url       = {https://doi.org/10.5281/zenodo.13928441}
+}
+@article{carmen-analysis-files,
+  author  = {Surname, Name},
+  title   = {{CARMEN Whatever}},
+  journal = {X},
+  year    = {X},
+  volume  = {X},
+  number  = {X},
+  pages   = {X--X},
+  doi     = {X},
+  url     = {}
+}
+```
+
+## Acknowledgements
+
+The described pipeline uses and/or references the following external libraries, packages, and other software:
+
+- [Biopython](https://biopython.org)
+- [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0)
+- [Logomaker](https://logomaker.readthedocs.io)
+- [Matplotlib](https://matplotlib.org)
+- [matplotlib-venn](https://github.com/konstantint/matplotlib-venn)
+- [natsort](https://github.com/SethMMorton/natsort)
+- [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1)
+- [NumPy](https://numpy.org)
+- [pandas](https://pandas.pydata.org)
+- [Polars](https://pola.rs)
+- [scikit-learn](https://scikit-learn.org)
+- [SciPy](https://scipy.org)
+- [seaborn](https://seaborn.pydata.org)
+- [tqdm](https://github.com/tqdm/tqdm)
+- [umap-learn](https://umap-learn.readthedocs.io)
+
+Moreover, the pipeline uses portions of data published in the following databases:
+
+- [MHC Motif Atlas](http://mhcmotifatlas.org)
+- [NMDP Registry Haplotype Frequencies](https://frequency.nmdp.org)
+
+  The table saved in the `data/nmdp-hla-frequencies/populations-description.csv` file was compiled based on Table 1 in [Gragert et al.](https://www.sciencedirect.com/science/article/pii/S0198885913001821)
+
+We wish to thank all their contributors and maintainers!
+
+This work was supported by the International Centre for Cancer Vaccine Science project (no. MAB/2017/3) carried out within the International Research Agendas programme of the Foundation for Polish Science co-financed by the European Union under the European Regional Development Fund. This project has received funding from the European Union's Horizon 2020/H2020-SCI-FA-DTS-2020-1 research and innovation programme under the Knowledge At the Tip of Your fingers: Clinical Knowledge for Humanity project (no. 101017453).
+
+We thank the PLGrid infrastructure (Cracow, Poland) for providing their resources.
+
+## License and Disclaimer
+
+Copyright (c) 2024 immuno-informatics
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+### Third-Party Software
+
+The software, libraries, code, or data from third parties mentioned in the [Acknowledgements](#acknowledgements) section above may come with their own terms and conditions or licensing requirements. When using this third-party software, libraries, code, or data it's essential to adhere to these terms. Ensure you understand and can follow any relevant restrictions or terms and conditions prior to using them.
