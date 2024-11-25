@@ -23,7 +23,6 @@ yallcen = (emilia_umap_with_ids["y"].min() + emilia_umap_with_ids["y"].max() )/2
 popcov = []
 popcov_but_sqrt = []
 vlen = []
-raise NotImplementedError("")
 for scaffold in dataslice.iter_rows(named=True):
     tmp = emilia_umap_with_ids.with_columns(scafres = polars.col("Peptides").list.set_intersection(scaffold["pep_list"])).with_columns(alen = polars.col("scafres").list.len()).sort("alen")
     x = tmp.select(polars.col("x").filter(polars.col("alen")>0))["x"]
