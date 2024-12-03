@@ -12,7 +12,7 @@ Please follow these steps to obtain the code to run the pipeline:
 
   ```bash
   git clone https://github.com/immuno-informatics/carmen-analysis.git
-  cd ./carmen-analysis
+  cd carmen-analysis
   ```
 
   or
@@ -21,8 +21,8 @@ Please follow these steps to obtain the code to run the pipeline:
 
   ```bash
   wget https://github.com/immuno-informatics/carmen-analysis/archive/refs/heads/main.zip
-  unzip carmen-analysis-main.zip
-  cd ./carmen-analysis-main
+  unzip main.zip
+  cd carmen-analysis-main
   ```
 
 Some of the pipeline files and file processing descriptions included assume work in a Linux environment.
@@ -31,7 +31,7 @@ Some of the pipeline files and file processing descriptions included assume work
 
 **The pipeline requires a working [Python](https://www.python.org) installation**. We suggest to install [Conda](https://docs.anaconda.com/miniconda) to handle Python operations.
 
-The described pipeline used multiple Python environments to handle different parts of the analysis while preparing the results. Details of those environments have been saved as [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) environment specifications to `environment-*.yml` files. Please follow in detail the instructions included in the [How to Run the Analysis](#how-to-run-the-analysis) section to achieve reproducibility.
+The described pipeline uses multiple Python environments to handle different parts of the analysis while preparing the results. Details of those environments have been saved as [Conda environment specifications](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) to `environment-*.yml` files. Please follow in detail the instructions included in the [How to Run the Analysis](#how-to-run-the-analysis) section to achieve reproducibility.
 
 ### Required Databases
 
@@ -39,7 +39,7 @@ The analysis pipeline requires certain external files to produce all results. Pl
 
 #### CARMEN Core Files
 
-The analysis pipeline runs on certain core CARMEN database files available at [the main repository](https://doi.org/10.5281/zenodo.13928442). Please download the following files:
+The analysis pipeline runs on certain core CARMEN database files available at [the main repository](https://doi.org/10.5281/zenodo.13928441). Please download the following files:
 
 1. `carmen-main.parquet`&mdash;the main part of the database. Contains a dataset gathered from standardized reprocessing of 72 publicly available immunopeptidomic mass spectrometry datasets. Contains all gathered peptides and their annotations.
 2. x
@@ -64,7 +64,7 @@ The files used within the pipeline are as follows (names as downloaded from the 
 1. `A.xlsx`
 2. `B.xlsx`
 3. `C.xlsx`
-4. `A\~C\~B.xlsx`
+4. `A~C~B.xlsx`
 
 To be able to run the analysis and further process all necessary data, please download the database and put the above files into the `data/nmdp-hla-frequencies` directory.
 
@@ -170,7 +170,9 @@ Filter-out non-human alleles and peptides of lengths other than 9 amino acids, a
 python scripts/6_process_motif_atlas_peptides.py
 ```
 
-### 7. ML Model
+### 7. MHC Class I Binders Prediction
+
+Create and test machine learning models that predict peptide-MHC complex binding. Test the models' robustness by shuffling input sequences.
 
 First, create a new Python environment based on a proper specification (`environment-7-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-7-X` to anything else); deactivate the previous environment if you have it loaded:
 
@@ -182,9 +184,175 @@ conda env create --name carmen-analysis-7-X --file environment-7-X.yml --yes
 conda activate carmen-analysis-7-X
 ```
 
-### X. Han's Stuff
+For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA-AOMP) model and its data created by [Chu et al.](https://www.nature.com/articles/s42256-022-00459-7) Please follow these steps to set up the code:
 
-Population-based simulation of MHC class I antigen presentation using [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1).
+1. Clone the repository and `cd` into it:
+
+    ```bash
+    git clone https://github.com/a96123155/TransPHLA-AOMP.git
+    cd TransPHLA-AOMP
+    ```
+
+    or
+
+    [Download](https://github.com/a96123155/TransPHLA-AOMP/archive/refs/heads/master.zip) contents of the repository, unzip it, and `cd` into it.
+
+    ```bash
+    wget https://github.com/a96123155/TransPHLA-AOMP/archive/refs/heads/master.zip
+    unzip master.zip
+    cd TransPHLA-AOMP-master
+    ```
+
+2. Unzip `Dataset/external_set.zip` and `Dataset/independent_set.zip`:
+
+    ```bash
+    unzip Dataset/external_set.zip -d Dataset
+    unzip Dataset/independent_set.zip -d Dataset
+    ```
+
+3. Run `scripts/transphla_randomize_input.py` from the main `carmen-analysis` directory:
+
+    ```bash
+    python /path/to/carmen-analysis/scripts/transphla_randomize_input.py
+    ```
+
+4. Open the `Procedure Code/pHLAIformer.ipynb` Jupyter notebook and make the following changes to the code:
+    1. Add a new cell after current cell no. 2 and paste the following code:
+
+        ```python
+        # Main TransPHLA-AOMP directory
+        transphla_dir = "/path/to/TransPHLA-AOMP"
+
+        output_dir = transphla_dir + "/carmen-paper"
+        ```
+
+    2. Change the contents of current cell no. 4 to the following:
+
+        ```python
+        hla_sequence = pd.read_csv(transphla_dir + "/Dataset/common_hla_sequence.csv")
+        ```
+
+    3. Change line no. 6 of current cell no. 9 to the following:
+
+        ```python
+        vocab = np.load(transphla_dir + "/TransPHLA-AOMP/vocab_dict.npy", allow_pickle=True).item()
+        ```
+
+    4. Change line no. 1 of current cell no. 10 to the following:
+
+        ```python
+        def data_with_loader(type_="train", fold=None, batch_size=1024, suffix=""):
+        ```
+
+    5. Change line no. 3 of current cell no. 10 to the following:
+
+        ```python
+        data = pd.read_csv(transphla_dir + f"/Dataset/{type_}_set{suffix}.csv", index_col=0)
+        ```
+
+    6. Change line no. 5 of current cell no. 10 to the following:
+
+        ```python
+        data = pd.read_csv(transphla_dir + f"/Dataset/train_data_fold{fold}{suffix}.csv", index_col=0)
+        ```
+
+    7. Change line no. 7 of current cell no. 10 to the following:
+
+        ```python
+        data = pd.read_csv(transphla_dir + f"/Dataset/val_data_fold{fold}{suffix}.csv", index_col=0)
+        ```
+
+    8. Add a new cell after current cell no. 10 and paste the following code:
+
+        ```python
+        from sklearn.metrics import roc_curve
+
+        def save_results():
+            fold_n = 0
+            results_dir = output_dir + f"/results/model{suffix}"
+            roc_col_x = "x"
+            roc_col_y = "y"
+            if not os.path.exists(results_dir):
+                os.makedirs(results_dir)
+            # Save metrics (accuracy, F1 score, etc.)
+            train_metrics = performances_to_pd(train_fold_metrics_list)
+            train_metrics.to_csv(results_dir + f"/train_metrics{suffix}_layer{n_layers}_multihead{n_heads}.csv")
+            val_metrics = performances_to_pd(val_fold_metrics_list)
+            val_metrics.to_csv(results_dir + f"/val_metrics{suffix}_layer{n_layers}_multihead{n_heads}.csv")
+            indep_metrics = performances_to_pd(independent_fold_metrics_list)
+            indep_metrics.to_csv(results_dir + f"/indep_metrics{suffix}_layer{n_layers}_multihead{n_heads}.csv")
+            ext_metrics = performances_to_pd(external_fold_metrics_list)
+            ext_metrics.to_csv(results_dir + f"/ext_metrics{suffix}_layer{n_layers}_multihead{n_heads}.csv")
+            # Save ROC curve coordinates and AUC scores
+            result_ys = {"train": ys_train_fold_dict[fold_n], "val": ys_val_fold_dict[fold_n], "indep": ys_independent_fold_dict[fold_n], "ext": ys_external_fold_dict[fold_n]}
+            for r_type, r in result_ys.items():
+                r_fpr, r_tpr, _ = metrics.roc_curve(r[0], r[2])
+                r_auc = metrics.roc_auc_score(r[0], r[2])
+                roc = pd.DataFrame({roc_col_x: r_fpr, roc_col_y: r_tpr})
+                roc.to_csv(results_dir + f"/{r_type}_roc{suffix}_layer{n_layers}_multihead{n_heads}.csv", index=False)
+                with open(results_dir + f"/{r_type}_auc{suffix}_layer{n_layers}_multihead{n_heads}.txt", "w") as handle:
+                    handle.write(str(r_auc))
+        ```
+
+    9. Add a new cell after current cell no. 11 and paste the following code:
+
+        ```python
+        suffix = ""
+        # suffix = "_rand_hla_train_only"
+        # suffix = "_rand_hla_test_only"
+        # suffix = "_rand_hla_all"
+        # suffix = "_rand_pep_all"
+        # suffix = "_rand_pep_test_only"
+        # suffix = "_rand_pep_train_only"
+        ```
+
+    10. Change line no. 1 of current cell no. 13 to the following:
+
+        ```python
+        independent_data, independent_pep_inputs, independent_hla_inputs, independent_labels, independent_loader = data_with_loader(type_="independent", fold=None, batch_size=batch_size, suffix=suffix)
+        ```
+
+    11. Change line no. 2 of current cell no. 13 to the following:
+
+        ```python
+        external_data, external_pep_inputs, external_hla_inputs, external_labels, external_loader = data_with_loader(type_="external", fold=None, batch_size=batch_size, suffix=suffix)
+        ```
+
+    12. Change line no. 12 of current cell no. 14 to the following:
+
+        ```python
+        train_data, train_pep_inputs, train_hla_inputs, train_labels, train_loader = data_with_loader(type_="train", fold=fold, batch_size=batch_size, suffix=suffix)
+        ```
+
+    13. Change line no. 13 of current cell no. 14 to the following:
+
+        ```python
+        val_data, val_pep_inputs, val_hla_inputs, val_labels, val_loader = data_with_loader(type_="val", fold=fold, batch_size=batch_size, suffix=suffix)
+        ```
+
+    14. Change line no. 22 of current cell no. 14 to the following:
+
+        ```python
+        dir_saver = output_dir + f"/models/model{suffix}
+        ```
+
+    15. Change line no. 23 of current cell no. 14 to the following:
+
+        ```python
+        path_saver = dir_saver + f"/model{suffix}_layer{n_layers}_multihead{n_heads}_fold{fold}.pkl"
+        ```
+
+    16. After line no. 67 of current cell no. 14 add the following line:
+
+        ```python
+        save_results()
+        ```
+
+Now, by changing which line is left uncommented in cell no. 12 we can train and test a different model.
+
+### X. MHC Class I Antigen Presentation Comparison
+
+Create a population-based simulation of MHC class I antigen presentation using [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1), compare the populations, and prepare data for relevant figures.
 
 First, create a new Python environment based on a proper specification (`environment-X-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-X-X` to anything else); deactivate the previous environment if you have it loaded:
 
@@ -380,6 +548,7 @@ The described pipeline uses and/or references the following external libraries, 
 - [SciPy](https://scipy.org)
 - [seaborn](https://seaborn.pydata.org)
 - [tqdm](https://github.com/tqdm/tqdm)
+- [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA-AOMP)
 - [umap-learn](https://umap-learn.readthedocs.io)
 
 Moreover, the pipeline uses portions of data published in the following databases:
