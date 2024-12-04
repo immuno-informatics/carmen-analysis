@@ -223,7 +223,7 @@ For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA
         # Main TransPHLA-AOMP directory
         transphla_dir = "/path/to/TransPHLA-AOMP"
 
-        output_dir = transphla_dir + "/carmen-paper"
+        output_dir = transphla_dir + "/results-carmen-paper"
         ```
 
     2. Add a new cell after cell no. 3 and paste the following code:
@@ -281,7 +281,7 @@ For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA
 
         def save_results():
             fold_n = 0
-            results_dir = output_dir + f"/results/model{suffix}"
+            results_dir = output_dir + f"/metrics/model{suffix}"
             roc_col_x = "x"
             roc_col_y = "y"
             if not os.path.exists(results_dir):
@@ -342,13 +342,21 @@ For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA
         path_saver = dir_saver + f"/model{suffix}_layer{n_layers}_multihead{n_heads}_fold{fold}.pkl"
         ```
 
-    16. After line no. 67 of cell no. 14 add the following line (should be inside the first `for` loop):
+    16. Change line no. 34 of cell no. 14 to the following:
+
+        ```python
+        metrics_ep_avg = np.nansum(metrics_val[:4]) / 4
+        ```
+
+    17. After line no. 67 of cell no. 14 add the following line (should be inside the first `for` loop):
 
         ```python
         save_results()
         ```
 
 Now, by changing which line is left uncommented in cell no. 4 (`suffix` definitions) we can train and test different models.
+
+For the purpose of the paper we created and tested models indicated by `suffix = ""` (original data) and `suffix = "_rand_hla_test_only"` (independent and external datasets have HLA sequences randomized).
 
 ### X. MHC Class I Antigen Presentation Comparison
 
