@@ -216,8 +216,8 @@ For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA
     python /path/to/carmen-analysis/scripts/transphla_randomize_input.py
     ```
 
-4. Open the `Procedure Code/pHLAIformer.ipynb` Jupyter notebook and make the following changes to the code:
-    1. Add a new cell after current cell no. 2 and paste the following code:
+4. Open the `Procedure Code/pHLAIformer.ipynb` Jupyter notebook and make the following changes to the code (cell numbering accounts for subsequently added cells):
+    1. Add a new cell after cell no. 2 and paste the following code:
 
         ```python
         # Main TransPHLA-AOMP directory
@@ -226,43 +226,55 @@ For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA
         output_dir = transphla_dir + "/carmen-paper"
         ```
 
-    2. Change the contents of current cell no. 4 to the following:
+    2. Add a new cell after cell no. 3 and paste the following code:
+
+        ```python
+        suffix = ""
+        # suffix = "_rand_hla_train_only"
+        # suffix = "_rand_hla_test_only"
+        # suffix = "_rand_hla_all"
+        # suffix = "_rand_pep_all"
+        # suffix = "_rand_pep_test_only"
+        # suffix = "_rand_pep_train_only"
+        ```
+
+    3. Change the contents of cell no. 5 to the following:
 
         ```python
         hla_sequence = pd.read_csv(transphla_dir + "/Dataset/common_hla_sequence.csv")
         ```
 
-    3. Change line no. 6 of current cell no. 9 to the following:
+    4. Change line no. 6 of cell no. 10 to the following:
 
         ```python
         vocab = np.load(transphla_dir + "/TransPHLA-AOMP/vocab_dict.npy", allow_pickle=True).item()
         ```
 
-    4. Change line no. 1 of current cell no. 10 to the following:
+    5. Change line no. 1 of cell no. 11 to the following:
 
         ```python
         def data_with_loader(type_="train", fold=None, batch_size=1024, suffix=""):
         ```
 
-    5. Change line no. 3 of current cell no. 10 to the following:
+    6. Change line no. 3 of cell no. 11 to the following:
 
         ```python
         data = pd.read_csv(transphla_dir + f"/Dataset/{type_}_set{suffix}.csv", index_col=0)
         ```
 
-    6. Change line no. 5 of current cell no. 10 to the following:
+    7. Change line no. 5 of cell no. 11 to the following:
 
         ```python
         data = pd.read_csv(transphla_dir + f"/Dataset/train_data_fold{fold}{suffix}.csv", index_col=0)
         ```
 
-    7. Change line no. 7 of current cell no. 10 to the following:
+    8. Change line no. 7 of cell no. 11 to the following:
 
         ```python
         data = pd.read_csv(transphla_dir + f"/Dataset/val_data_fold{fold}{suffix}.csv", index_col=0)
         ```
 
-    8. Add a new cell after current cell no. 10 and paste the following code:
+    9. Add a new cell after cell no. 11 and paste the following code:
 
         ```python
         from sklearn.metrics import roc_curve
@@ -294,61 +306,49 @@ For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA
                     handle.write(str(r_auc))
         ```
 
-    9. Add a new cell after current cell no. 11 and paste the following code:
-
-        ```python
-        suffix = ""
-        # suffix = "_rand_hla_train_only"
-        # suffix = "_rand_hla_test_only"
-        # suffix = "_rand_hla_all"
-        # suffix = "_rand_pep_all"
-        # suffix = "_rand_pep_test_only"
-        # suffix = "_rand_pep_train_only"
-        ```
-
-    10. Change line no. 1 of current cell no. 13 to the following:
+    10. Change line no. 1 of cell no. 13 to the following:
 
         ```python
         independent_data, independent_pep_inputs, independent_hla_inputs, independent_labels, independent_loader = data_with_loader(type_="independent", fold=None, batch_size=batch_size, suffix=suffix)
         ```
 
-    11. Change line no. 2 of current cell no. 13 to the following:
+    11. Change line no. 2 of cell no. 13 to the following:
 
         ```python
         external_data, external_pep_inputs, external_hla_inputs, external_labels, external_loader = data_with_loader(type_="external", fold=None, batch_size=batch_size, suffix=suffix)
         ```
 
-    12. Change line no. 12 of current cell no. 14 to the following:
+    12. Change line no. 12 of cell no. 14 to the following:
 
         ```python
         train_data, train_pep_inputs, train_hla_inputs, train_labels, train_loader = data_with_loader(type_="train", fold=fold, batch_size=batch_size, suffix=suffix)
         ```
 
-    13. Change line no. 13 of current cell no. 14 to the following:
+    13. Change line no. 13 of cell no. 14 to the following:
 
         ```python
         val_data, val_pep_inputs, val_hla_inputs, val_labels, val_loader = data_with_loader(type_="val", fold=fold, batch_size=batch_size, suffix=suffix)
         ```
 
-    14. Change line no. 22 of current cell no. 14 to the following:
+    14. Change line no. 22 of cell no. 14 to the following:
 
         ```python
         dir_saver = output_dir + f"/models/model{suffix}
         ```
 
-    15. Change line no. 23 of current cell no. 14 to the following:
+    15. Change line no. 23 of cell no. 14 to the following:
 
         ```python
         path_saver = dir_saver + f"/model{suffix}_layer{n_layers}_multihead{n_heads}_fold{fold}.pkl"
         ```
 
-    16. After line no. 67 of current cell no. 14 add the following line:
+    16. After line no. 67 of cell no. 14 add the following line (should be inside the first `for` loop):
 
         ```python
         save_results()
         ```
 
-Now, by changing which line is left uncommented in cell no. 12 we can train and test a different model.
+Now, by changing which line is left uncommented in cell no. 4 (`suffix` definitions) we can train and test different models.
 
 ### X. MHC Class I Antigen Presentation Comparison
 
