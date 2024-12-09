@@ -201,6 +201,7 @@ For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA
     wget https://github.com/a96123155/TransPHLA-AOMP/archive/refs/heads/master.zip
     unzip master.zip
     cd TransPHLA-AOMP-master
+    rm master.zip
     ```
 
 2. Unzip `Dataset/external_set.zip` and `Dataset/independent_set.zip`:
@@ -356,20 +357,26 @@ For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA
 
 Now, by changing which line is left uncommented in cell no. 4 (`suffix` definitions) we can train and test different models.
 
-For the purpose of the paper we created and tested models indicated by `suffix = ""` (original data) and `suffix = "_rand_hla_test_only"` (independent and external datasets have HLA sequences randomized).
+For the purpose of the paper we created and tested models indicated by `suffix = ""` (original data) and `suffix = "_rand_hla_test_only"` (independent and external datasets have HLA sequences randomized). After testing the models yourself, copy the contents of the `/results-carmen-paper` directory to `/data/subsidiary-files/ml-models` in the main `carmen-analysis` space:
 
-### X. MHC Class I Antigen Presentation Comparison
+```bash
+cp -r results-carmen-paper/. /path/to/carmen-analysis/data/subsidiary-files/ml-models
+```
 
-Create a population-based simulation of MHC class I antigen presentation using [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1), compare the populations, and prepare data for relevant figures.
+Afterwards go back to the main `carmen-analysis` directory.
 
-First, create a new Python environment based on a proper specification (`environment-X-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-X-X` to anything else); deactivate the previous environment if you have it loaded:
+### 8. MHC Class I Antigen Presentation Comparison
+
+Create a population-based simulation of MHC class I antigen presentation using [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1) and compare the populations.
+
+First, create a new Python environment based on a proper specification (`environment-08-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-08-X` to anything else); deactivate the previous environment if you have it loaded:
 
 ```bash
 # Run this line if you have another Conda environment loaded:
 conda deactivate
 
-conda env create --name carmen-analysis-X-X --file environment-X-X.yml --yes
-conda activate carmen-analysis-X-X
+conda env create --name carmen-analysis-08-X --file environment-08-X.yml --yes
+conda activate carmen-analysis-08-X
 ```
 
 Open the `scripts/XXXXXX.ipynb` Jupyter notebook and follow its structure and instructions.
@@ -543,6 +550,7 @@ Also, please add citations for the main CARMEN database and other files produced
 The described pipeline uses and/or references the following external libraries, packages, and other software:
 
 - [Biopython](https://biopython.org)
+- [CAPE](https://github.com/hcgasser/CAPE)
 - [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0)
 - [Logomaker](https://logomaker.readthedocs.io)
 - [Matplotlib](https://matplotlib.org)
@@ -552,6 +560,7 @@ The described pipeline uses and/or references the following external libraries, 
 - [NumPy](https://numpy.org)
 - [pandas](https://pandas.pydata.org)
 - [Polars](https://pola.rs)
+- [PyTorch](https://pytorch.org)
 - [scikit-learn](https://scikit-learn.org)
 - [SciPy](https://scipy.org)
 - [seaborn](https://seaborn.pydata.org)
@@ -570,7 +579,7 @@ We wish to thank all their contributors and maintainers!
 
 This work was supported by the International Centre for Cancer Vaccine Science project (no. MAB/2017/3) carried out within the International Research Agendas programme of the Foundation for Polish Science co-financed by the European Union under the European Regional Development Fund. This project has received funding from the European Union's Horizon 2020/H2020-SCI-FA-DTS-2020-1 research and innovation programme under the Knowledge At the Tip of Your fingers: Clinical Knowledge for Humanity project (no. 101017453).
 
-We thank the PLGrid infrastructure (Cracow, Poland) for providing their resources.
+We thank the [PLGrid](https://plgrid.pl) infrastructure (Cracow, Poland) for providing their resources.
 
 ## License and Disclaimer
 
