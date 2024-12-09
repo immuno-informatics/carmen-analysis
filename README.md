@@ -80,25 +80,25 @@ To be able to run the entire analysis and produce its results (data files, figur
 
 ### 1. Create Working Directories
 
-First, create a new Python environment based on a proper specification (`environment-1-6.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-1-6` to anything else):
+First, create a new Python environment based on a proper specification (`environment-01-06.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-01-06` to anything else):
 
 ```bash
-conda env create --name carmen-analysis-1-6 --file environment-1-6.yml --yes
-conda activate carmen-analysis-1-6
+conda env create --name carmen-analysis-01-06 --file environment-01-06.yml --yes
+conda activate carmen-analysis-01-06
 ```
 
-After which, run the `scripts/1_set_up_env.py` script:
+After which, run the `scripts/01_set_up_env.py` script:
 
 ```bash
-python scripts/1_set_up_env.py
+python scripts/01_set_up_env.py
 ```
 
 ### 2. Prepare Samples for GibbsCluster
 
-Run `scripts/2_prep_gibbscluster_samples.py` script:
+Run `scripts/02_prep_gibbscluster_samples.py` script:
 
 ```bash
-python scripts/2_prep_gibbscluster_samples.py
+python scripts/02_prep_gibbscluster_samples.py
 ```
 
 ### 3. Run GibbsCluster Over the Samples
@@ -110,12 +110,12 @@ Because of the big number of samples and peptides to analyze, here we utilized a
 There are two script files used to produce [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) results:
 
 - `scripts/gibbscluster-sbatch.sh`&mdash;sbatch script with configuration for a singular Slurm job of running [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) with given arguments
-- `scripts/3_gibbscluster-spawn-jobs.sh`&mdash;Bash script that iterates over input files and, for each, creates a Slurm job to run it through [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0)
+- `scripts/03_gibbscluster-spawn-jobs.sh`&mdash;Bash script that iterates over input files and, for each, creates a Slurm job to run it through [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0)
 
-The entry point is the `scripts/3_gibbscluster-spawn-jobs.sh` script where you set up all necessary input and output configuration. Remember to set up a proper job configuration in `scripts/gibbscluster-sbatch.sh`, appropriate for your [Slurm](https://slurm.schedmd.com) system configuration, and then run the main script:
+The entry point is the `scripts/03_gibbscluster-spawn-jobs.sh` script where you set up all necessary input and output configuration. Remember to set up a proper job configuration in `scripts/gibbscluster-sbatch.sh`, appropriate for your [Slurm](https://slurm.schedmd.com) system configuration, and then run the main script:
 
 ```bash
-bash scripts/3_gibbscluster-spawn-jobs.sh
+bash scripts/03_gibbscluster-spawn-jobs.sh
 ```
 
 In case there is no access to a [Slurm](https://slurm.schedmd.com) system, you can try to run [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) serially (or adapt a similar way):
@@ -138,20 +138,20 @@ done
 
 ### 4. Extract PSSMs of Clustered Peptides
 
-Extract position-specific scoring matrices from [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) results. Run `scripts/4_extract_pssms.py` script:
+Extract position-specific scoring matrices from [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0) results. Run `scripts/04_extract_pssms.py` script:
 
 ```bash
-python scripts/4_extract_pssms.py
+python scripts/04_extract_pssms.py
 ```
 
 ### 5. Create Embeddings for PSSMs and Group Them
 
 Take the position-specific scoring matrices calculated for clustered peptides from samples and create 2-dimensional embeddings using a UMAP model. Next, group those representations using a clustering algorithm.
 
-To use the UMAP model trained and saved by the authors, follow the instructions in the [CARMEN Analysis Additional Files](#carmen-analysis-additional-files) section for the `umap-reducer-main.pickle` file, and then run the `scripts/5_umap_embeddings_and_labels.py` script:
+To use the UMAP model trained and saved by the authors, follow the instructions in the [CARMEN Analysis Additional Files](#carmen-analysis-additional-files) section for the `umap-reducer-main.pickle` file, and then run the `scripts/05_umap_embeddings_and_labels.py` script:
 
 ```bash
-python scripts/5_umap_embeddings_and_labels.py
+python scripts/05_umap_embeddings_and_labels.py
 ```
 
 The exact way how to re-create (or re-train) the UMAP model is contained in the `scripts/umap_model_main.py` script. Running this script will overwrite any saved model. Please be advised that recreating the UMAP model on a different machine setup may alter a significant portion of the results:
@@ -160,28 +160,28 @@ The exact way how to re-create (or re-train) the UMAP model is contained in the 
 python scripts/umap_model_main.py
 ```
 
-After creating a new model run the `scripts/5_umap_embeddings_and_labels.py` script to calculate new embeddings and labels.
+After creating a new model run the `scripts/05_umap_embeddings_and_labels.py` script to calculate new embeddings and labels.
 
 ### 6. Process the MHC Motif Atlas Peptides
 
-Filter-out non-human alleles and peptides of lengths other than 9 amino acids, and then create 2-dimensional embeddings for each unique allele by using the UMAP model that was previously trained on peptides from CARMEN samples. Run the `scripts/6_process_motif_atlas_peptides.py` script:
+Filter-out non-human alleles and peptides of lengths other than 9 amino acids, and then create 2-dimensional embeddings for each unique allele by using the UMAP model that was previously trained on peptides from CARMEN samples. Run the `scripts/06_process_motif_atlas_peptides.py` script:
 
 ```bash
-python scripts/6_process_motif_atlas_peptides.py
+python scripts/06_process_motif_atlas_peptides.py
 ```
 
 ### 7. MHC Class I Binders Prediction
 
 Create and test machine learning models that predict peptide-MHC complex binding. Test the models' robustness by shuffling input sequences.
 
-First, create a new Python environment based on a proper specification (`environment-7-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-7-X` to anything else); deactivate the previous environment if you have it loaded:
+First, create a new Python environment based on a proper specification (`environment-07.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-07` to anything else); deactivate the previous environment if you have it loaded:
 
 ```bash
 # Run this line if you have another Conda environment loaded:
 conda deactivate
 
-conda env create --name carmen-analysis-7-X --file environment-7-X.yml --yes
-conda activate carmen-analysis-7-X
+conda env create --name carmen-analysis-07 --file environment-07.yml --yes
+conda activate carmen-analysis-07
 ```
 
 For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA-AOMP) model and its data created by [Chu et al.](https://www.nature.com/articles/s42256-022-00459-7) Please follow these steps to set up the code:
