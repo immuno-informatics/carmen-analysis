@@ -357,7 +357,9 @@ For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA
 
 Now, by changing which line is left uncommented in cell no. 4 (`suffix` definitions) we can train and test different models.
 
-For the purpose of the paper we created and tested models indicated by `suffix = ""` (original data) and `suffix = "_rand_hla_test_only"` (independent and external datasets have HLA sequences randomized). After testing the models yourself, copy the contents of the `/results-carmen-paper` directory to `/data/subsidiary-files/ml-models` in the main `carmen-analysis` space:
+For the purpose of the paper we created and tested models indicated by `suffix = ""` (original data), `suffix = "_rand_hla_train_only"` (training and validation datasets have HLA sequences randomized), `suffix = "_rand_hla_test_only"` (independent and external datasets have HLA sequences randomized), `suffix = "_rand_hla_all"` (all datasets have HLA sequences randomized), `suffix = "_rand_pep_train_only"` (training and validation datasets have peptide sequences randomized), `suffix = "_rand_pep_test_only"` (independent and external datasets have peptide sequences randomized), and `suffix = "_rand_pep_all"` (all datasets have peptide sequences randomized).
+
+After training and testing the models, copy the contents of the `/results-carmen-paper` directory to `/data/subsidiary-files/ml-models` in the main `carmen-analysis` space:
 
 ```bash
 cp -r results-carmen-paper/. /path/to/carmen-analysis/data/subsidiary-files/ml-models
