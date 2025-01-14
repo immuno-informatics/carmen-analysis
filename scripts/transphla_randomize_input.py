@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-# Main TransPHLA-AOMP directory
+# Root TransPHLA-AOMP directory
 transphla_dir = Path("/path/to/TransPHLA-AOMP")
 
 datasets_dir = transphla_dir.joinpath("Dataset")
