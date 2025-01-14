@@ -2,7 +2,7 @@
 
 [![CARMEN immunopeptidomics database](https://zenodo.org/badge/DOI/10.5281/zenodo.13928441.svg)](https://doi.org/10.5281/zenodo.13928441)
 
-CARMEN database analysis with data and figure generation for the [upcoming](https://www.google.com) paper.
+> CARMEN database analysis with data and figure generation for the [upcoming](https://www.google.com) paper.
 
 ## Setup
 
@@ -39,12 +39,12 @@ The analysis pipeline requires certain external files to produce all results. Pl
 
 #### CARMEN Core Files
 
-The analysis pipeline runs on certain core CARMEN database files available at [the main repository](https://doi.org/10.5281/zenodo.13928441). Please download the following files:
+The analysis pipeline runs with certain core CARMEN database files available at [the main repository](https://doi.org/10.5281/zenodo.13928441). Please download the following files:
 
 1. `carmen-main.parquet`&mdash;the main part of the database. Contains a dataset gathered from standardized reprocessing of 72 publicly available immunopeptidomic mass spectrometry datasets. Contains all gathered peptides and their annotations.
 2. x
 
-And subsequently move them to the *data* directory.
+And subsequently move them to the `data` directory.
 
 #### CARMEN Analysis Additional Files
 
@@ -172,7 +172,7 @@ python scripts/06_process_motif_atlas_peptides.py
 
 ### 7. MHC Class I Binders Prediction
 
-Create and test machine learning models that predict peptide-MHC complex binding. Test the models' robustness by shuffling input sequences.
+Create and test machine learning models that predict peptide-MHC complex binding. Test the models' robustness by shuffling input sequences. Following subsequent steps require making adjustments to an external script to avoid publishing edited versions of the original code.
 
 First, create a new Python environment based on a proper specification (`environment-07.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-07` to anything else); deactivate the previous environment if you have it loaded:
 
@@ -221,9 +221,8 @@ For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA
     1. Add a new cell after cell no. 2 and paste the following code:
 
         ```python
-        # Main TransPHLA-AOMP directory
+        # Root TransPHLA-AOMP directory
         transphla_dir = "/path/to/TransPHLA-AOMP"
-
         output_dir = transphla_dir + "/results-carmen-paper"
         ```
 
@@ -278,8 +277,6 @@ For this task we use the [TransPHLA-AOMP](https://github.com/a96123155/TransPHLA
     9. Add a new cell after cell no. 11 and paste the following code:
 
         ```python
-        from sklearn.metrics import roc_curve
-
         def save_results():
             fold_n = 0
             results_dir = output_dir + f"/metrics/model{suffix}"
@@ -365,7 +362,7 @@ After training and testing the models, copy the contents of the `/results-carmen
 cp -r results-carmen-paper/. /path/to/carmen-analysis/data/subsidiary-files/ml-models
 ```
 
-Afterwards go back to the main `carmen-analysis` directory.
+Afterwards, go back to the main `carmen-analysis` directory.
 
 ### 8. MHC Class I Antigen Presentation Comparison
 
@@ -511,15 +508,16 @@ The `data/to-be-published/umap-reducer-main.pickle` file contains a serialized P
 Please cite the described work and relevant paper as:
 
 ```bibtex
-@article{carmen-analysis,
+@article{carmen-paper,
   author  = {Surname, Name},
-  title   = {{CARMEN Whatever}},
+  title   = {{CARMEN paper}},
   journal = {X},
   year    = {X},
   volume  = {X},
   number  = {X},
   pages   = {X--X},
-  doi     = {X}
+  doi     = {X},
+  url     = {}
 }
 ```
 
@@ -536,7 +534,18 @@ Also, please add citations for the main CARMEN database and other files produced
 }
 @article{carmen-analysis-files,
   author  = {Surname, Name},
-  title   = {{CARMEN Whatever}},
+  title   = {{CARMEN analysis files}},
+  journal = {X},
+  year    = {X},
+  volume  = {X},
+  number  = {X},
+  pages   = {X--X},
+  doi     = {X},
+  url     = {}
+}
+@article{carmen-analysis-code,
+  author  = {Surname, Name},
+  title   = {{CARMEN analysis code}},
   journal = {X},
   year    = {X},
   volume  = {X},
@@ -554,6 +563,7 @@ The described pipeline uses and/or references the following external libraries, 
 - [Biopython](https://biopython.org)
 - [CAPE](https://github.com/hcgasser/CAPE)
 - [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0)
+- [Jupyter](https://jupyter.org)
 - [Logomaker](https://logomaker.readthedocs.io)
 - [Matplotlib](https://matplotlib.org)
 - [matplotlib-venn](https://github.com/konstantint/matplotlib-venn)
