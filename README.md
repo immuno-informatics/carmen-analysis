@@ -368,7 +368,7 @@ Afterwards, go back to the main `carmen-analysis` directory.
 
 Create a population-based simulation of MHC class I antigen presentation using [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1) and compare the populations.
 
-First, create a new Python environment based on a proper specification (`environment-08-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-08-X` to anything else); deactivate the previous environment if you have it loaded:
+Create a new Python environment based on a proper specification (`environment-08-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-08-X` to anything else); deactivate the previous environment if you have it loaded:
 
 ```bash
 # Run this line if you have another Conda environment loaded:
@@ -378,11 +378,15 @@ conda env create --name carmen-analysis-08-X --file environment-08-X.yml --yes
 conda activate carmen-analysis-08-X
 ```
 
-Open the `scripts/XXXXXX.ipynb` Jupyter notebook and follow its structure and instructions.
+Open the `scripts/08_compare_population_antigenicity.ipynb` Jupyter notebook and follow its structure and instructions.
 
-### X. Aleksander's Stuff
+**Be advised that parts of this step produce completely randomized data and may slightly alter the results.**
 
-Qwe.
+### 9. Peptide Motifs and Haplotype Frequencies Analysis
+
+A.
+
+Open the `scripts/09_peptide_motifs_and_frequencies.ipynb` Jupyter notebook and follow its structure and instructions.
 
 ### X. Michał's Stuff
 
@@ -595,7 +599,7 @@ We thank the [PLGrid](https://plgrid.pl) infrastructure (Cracow, Poland) for pro
 
 ## License and Disclaimer
 
-Copyright (c) 2024 immuno-informatics
+Copyright (c) 2025 immuno-informatics
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
