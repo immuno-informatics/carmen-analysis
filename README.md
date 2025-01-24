@@ -366,7 +366,7 @@ Afterwards, go back to the main `carmen-analysis` directory.
 
 ### 8. MHC Class I Antigen Presentation Comparison
 
-Create a population-based simulation of MHC class I antigen presentation using [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1) and compare the populations.
+Create a population-based simulation of MHC class I antigen presentation using [NetMHCpan](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1) with randomly-generated peptides and compare the populations.
 
 Create a new Python environment based on a proper specification (`environment-08-X.yml`) before using any of the scripts/notebooks described below (you can change the name `carmen-analysis-08-X` to anything else); deactivate the previous environment if you have it loaded:
 
@@ -384,7 +384,7 @@ Open the `scripts/08_compare_population_antigenicity.ipynb` Jupyter notebook and
 
 ### 9. Peptide Motifs and Haplotype Frequencies Analysis
 
-A.
+Inspect peptide motifs landscape and how their antigenicity fits known haplotypes across different populations.
 
 Open the `scripts/09_peptide_motifs_and_frequencies.ipynb` Jupyter notebook and follow its structure and instructions.
 
