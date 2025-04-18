@@ -507,6 +507,24 @@ selected_pssm = pd.DataFrame(pssms[peptide_cluster_id])
 
 The `data/to-be-published/umap-reducer-main.pickle` file contains a serialized Python object that represents a UMAP model (from the `umap-learn` package) trained on position-specific scoring matrices calculated for peptides from samples clustered by [GibbsCluster](https://services.healthtech.dtu.dk/services/GibbsCluster-2.0).
 
+### Amino Acids Combinations in Peptides
+
+The `data/to-be-published/aa-combinations` directory contains a set of comma-separated table files named `aa-combinations-9aa-X.csv`, where `X` is the number of sequence positions taken into account (1 to 8). Each file describes specific sets of position numbers within peptide sequences&mdash;what amino acids can be found on given positions and which peptides contain the given combination. Key columns: **Positions** with **Amino_acids**.
+
+The table columns are as follows:
+
+- **Positions**
+
+  Semicolon-separated list of amino acid position numbers within peptide sequences.
+
+- **Amino_acids**
+
+  Semicolon-separated list of amino acids (the order corresponds to the **Positions** column).
+
+- **Peptides**
+
+  Semicolon-separated list of peptides.
+
 ## Citing This Work
 
 Please cite the described work and relevant paper as:
