@@ -402,41 +402,41 @@ The `data/to-be-published/carmen-peptide-clusters-characteristics.parquet` file 
 
 The table columns are as follows:
 
-- **ID**
+1. **ID**
 
-  Peptide cluster identification code in the form of "P\_*\<X\>*", where *X* is a consecutive cluster number ("1", "2", "3", etc.).
+    Peptide cluster identification code in the form of "P\_*\<X\>*", where *X* is a consecutive cluster number ("1", "2", "3", etc.).
 
-- **Sample_name**
+2. **Sample_name**
 
-  Source sample identifier, as in the main CARMEN database file.
+    Source sample identifier, as in the main CARMEN database file.
 
-- **Peptides**
+3. **Peptides**
 
-  Semicolon-separated list of peptides.
+    Semicolon-separated list of peptides.
 
-- **Binding_alleles**
+4. **Binding_alleles**
 
-  Semicolon-separated list of binding alleles associated with the peptides.
+    Semicolon-separated list of binding alleles associated with the peptides.
 
-- **UMAP\_x**
+5. **UMAP\_x**
 
-  The x coordinate from the UMAP model created based on a PSSM of the clustered peptides.
+    The x coordinate from the UMAP model created based on a PSSM of the clustered peptides.
 
-- **UMAP\_y**
+6. **UMAP\_y**
 
-  The y coordinate from the UMAP model created based on a PSSM of the clustered peptides.
+    The y coordinate from the UMAP model created based on a PSSM of the clustered peptides.
 
-- **Label**
+7. **Label**
 
-  Cluster label given by the clustering model based on UMAP coordinates ("1", "2", "3", etc.).
+    Cluster label given by the clustering model based on UMAP coordinates ("1", "2", "3", etc.).
 
-- **Freq\_*\<X\>*\_*\<Y\>***
+8. **Freq\_*\<X\>*\_*\<Y\>***
 
-  A collection of columns indicating frequency of occurrence of given MHC class I binding alleles (A or B or C) within certain populations, where *X* is a population code ("AAFA", "EURCAU", "NCHI", etc.) and *Y* is one of the three MHC class I genes indicators ("A", "B", or "C").
+    A collection of columns indicating frequency of occurrence of given MHC class I binding alleles (A or B or C) within certain populations, where *X* is a population code ("AAFA", "EURCAU", "NCHI", etc.) and *Y* is one of the three MHC class I genes indicators ("A", "B", or "C").
 
-- **Freq_*\<X\>*\_ABC\_*\<Y\>***
+9. **Freq_*\<X\>*\_ABC\_*\<Y\>***
 
-  A collection of columns indicating frequency of occurrence of given triplets of MHC class I alleles (A+B+C) within certain populations, where *X* is a population code ("AAFA", "EURCAU", "NCHI", etc.) and *Y* indicates whether a specific triplet of alleles is accounted for if any of the alleles match ("any") or if all alleles match ("all").
+    A collection of columns indicating frequency of occurrence of given triplets of MHC class I alleles (A+B+C) within certain populations, where *X* is a population code ("AAFA", "EURCAU", "NCHI", etc.) and *Y* indicates whether a specific triplet of alleles is accounted for if any of the alleles match ("any") or if all alleles match ("all").
 
 ### Peptide Clusters PSSMs
 
@@ -513,17 +513,17 @@ The `data/to-be-published/aa-combinations` directory contains a set of comma-sep
 
 The table columns are as follows:
 
-- **Positions**
+1. **Positions**
 
-  Semicolon-separated list of amino acid position numbers within peptide sequences.
+    Semicolon-separated list of amino acid position numbers within peptide sequences.
 
-- **Amino_acids**
+2. **Amino_acids**
 
-  Semicolon-separated list of amino acids (the order corresponds to the **Positions** column).
+    Semicolon-separated list of amino acids (the order corresponds to the **Positions** column).
 
-- **Peptides**
+3. **Peptides**
 
-  Semicolon-separated list of peptides.
+    Semicolon-separated list of peptides.
 
 ## Citing This Work
 
