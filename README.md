@@ -549,20 +549,22 @@ Also, please add citations for the main CARMEN database and other files produced
 @dataset{carmen-db,
   author    = {Kallor, Ashwin Adrian and Alfaro, Javier Antonio and Daghir-Wojtkowiak, Emilia and Palkowski, Aleksander and Waleron, Michał},
   title     = {{CARMEN immunopeptidomics database}},
+  month     = {apr},
   year      = {2024},
   publisher = {Zenodo},
   doi       = {10.5281/zenodo.13928441},
   url       = {https://doi.org/10.5281/zenodo.13928441}
 }
 @dataset{carmen-analysis-files,
-  author       = {Palkowski, Aleksander and Waleron, Michal and Kallor, Ashwin Adrian and Daghir-Wojtkowiak, Emilia and Alfaro, Javier Antonio},
-  title        = {Immunopeptidomics publication analysis results},
-  year         = {2025},
-  publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.14859003},
-  url          = {https://doi.org/10.5281/zenodo.14859003}
+  author    = {Palkowski, Aleksander and Waleron, Michal and Kallor, Ashwin Adrian and Daghir-Wojtkowiak, Emilia and Alfaro, Javier Antonio},
+  title     = {{Immunopeptidomics publication analysis results}},
+  month     = {apr},
+  year      = {2025},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.14859003},
+  url       = {https://doi.org/10.5281/zenodo.14859003}
 }
-@article{carmen-analysis-code,
+@software{carmen-analysis-code,
   author  = {Surname, Name},
   title   = {{CARMEN analysis code}},
   journal = {X},
