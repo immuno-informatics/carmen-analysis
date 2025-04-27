@@ -1,6 +1,6 @@
 # CARMEN Database Analysis
 
-[![CARMEN immunopeptidomics database](https://zenodo.org/badge/DOI/10.5281/zenodo.13928441.svg)](https://doi.org/10.5281/zenodo.13928441)
+[![CARMEN immunopeptidomics database](https://zenodo.org/badge/DOI/10.5281/zenodo.13928441.svg)](https://doi.org/10.5281/zenodo.13928441)[![CARMEN immunopeptidomics publication analysis results](https://zenodo.org/badge/DOI/10.5281/zenodo.14859003.svg)](https://doi.org/10.5281/zenodo.14859003)
 
 > CARMEN database analysis with data and figure generation for the [upcoming](https://www.google.com) paper.
 
@@ -555,15 +555,12 @@ Also, please add citations for the main CARMEN database and other files produced
   url       = {https://doi.org/10.5281/zenodo.13928441}
 }
 @article{carmen-analysis-files,
-  author  = {Surname, Name},
-  title   = {{CARMEN analysis files}},
-  journal = {X},
-  year    = {X},
-  volume  = {X},
-  number  = {X},
-  pages   = {X--X},
-  doi     = {X},
-  url     = {}
+  author       = {Palkowski, Aleksander and Waleron, Michal and Kallor, Ashwin Adrian and Daghir-Wojtkowiak, Emilia and Alfaro, Javier Antonio},
+  title        = {Immunopeptidomics publication analysis results},
+  year         = {2025},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.14859003},
+  url          = {https://doi.org/10.5281/zenodo.14859003}
 }
 @article{carmen-analysis-code,
   author  = {Surname, Name},
