@@ -543,14 +543,14 @@ Please cite the described work and relevant paper as:
 }
 ```
 
-Also, please add citations for the main CARMEN database and other files produced by said pipeline as:
+Also, please add citations for the main CARMEN database and other files associated with the publication as:
 
 ```bibtex
 @dataset{carmen-db,
   author    = {Kallor, Ashwin Adrian and Alfaro, Javier Antonio and Daghir-Wojtkowiak, Emilia and Palkowski, Aleksander and Waleron, Michał},
   title     = {{CARMEN immunopeptidomics database}},
   month     = {apr},
-  year      = {2024},
+  year      = {2025},
   publisher = {Zenodo},
   doi       = {10.5281/zenodo.13928441},
   url       = {https://doi.org/10.5281/zenodo.13928441}
