@@ -72,6 +72,21 @@ To be able to run the analysis and further process all necessary data, please do
 
 Partial data from the [MHC Motif Atlas class I alleles](http://mhcmotifatlas.org/class1) database is used during the analysis. Please use the "Download Data" button to access the "All Ligands" option and save the resulting file. The file `data_classI_all_peptides.txt` (name as downloaded from the website) should be moved to the `data` directory.
 
+### GENCODE
+
+Gencode GTF file is used in step 10 of the pipeline, detailed instructions of getting it are enclosed in the respective Jupyter notebook.
+
+### COSMIC 
+
+Cosmic mutation data is used in step 11 of the pipeline, detailed instructions of getting it are enclosed in the respective Jupyter notebook.
+
+**You may be required to acquire a commercial license if You aren't eligible for an academic license**
+
+### Braun et al. 2020 somatic mutations
+
+The somatic mutation MAF file from this article is used in step 12 of the pipeline, detailed instructions of getting and transforming it are enclosed in the respective Jupyter notebook.
+**You may be required to acquire a commercial liftOver license for this step if You aren't eligible for an academic license**
+
 ## How to Run the Analysis
 
 To be able to run the entire analysis and produce its results (data files, figures, etc.) we need to set-up and run specific scripts in a particular order. Please follow the instructions below.
@@ -387,6 +402,17 @@ Open the `scripts/08_compare_population_antigenicity.ipynb` Jupyter notebook and
 Inspect peptide motifs landscape and how their antigenicity fits known haplotypes across different populations.
 
 Open the `scripts/09_peptide_motifs_and_frequencies.ipynb` Jupyter notebook and follow its structure and instructions.
+
+
+### 10. GENCODE derived intermediary data
+
+Prepare the intermediary files based on GENCODE human genome v39 annotation gtf for later stages of analysis.
+
+Open the `scripts/10_GENCODE_data_generation.ipynb` Jupyter notebook and follow it's structure and instructions.
+
+### X. Michał's Stuff
+
+Qwe.
 
 ### X. Michał's Stuff
 
