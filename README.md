@@ -1,6 +1,6 @@
 # CARMEN Database Analysis
 
-[![CARMEN immunopeptidomics database](https://zenodo.org/badge/DOI/10.5281/zenodo.13928441.svg)](https://doi.org/10.5281/zenodo.13928441) [![CARMEN immunopeptidomics publication analysis results](https://zenodo.org/badge/DOI/10.5281/zenodo.14859003.svg)](https://doi.org/10.5281/zenodo.14859003)
+[![CARMEN immunopeptidomics pipeline](https://zenodo.org/badge/DOI/10.5281/zenodo.18248785.svg)](https://doi.org/10.5281/zenodo.18248785) [![CARMEN immunopeptidomics database](https://zenodo.org/badge/DOI/10.5281/zenodo.13928441.svg)](https://doi.org/10.5281/zenodo.13928441) [![CARMEN immunopeptidomics publication analysis results](https://zenodo.org/badge/DOI/10.5281/zenodo.14859003.svg)](https://doi.org/10.5281/zenodo.14859003)
 
 > CARMEN database analysis with data and figure generation for the [upcoming](https://www.google.com) paper.
 
@@ -569,15 +569,13 @@ Also, please add citations for the main CARMEN database and other files associat
   url       = {https://doi.org/10.5281/zenodo.14859003}
 }
 @software{carmen-analysis-code,
-  author  = {Surname, Name},
-  title   = {{CARMEN analysis code}},
-  journal = {X},
-  year    = {X},
-  volume  = {X},
-  number  = {X},
-  pages   = {X--X},
-  doi     = {X},
-  url     = {}
+  author    = {Palkowski, Aleksander and Waleron, Michał and Daghir-Wojtkowiak, Emilia and Kallor, Ashwin Adrian and Alfaro, Javier Antonio},
+  title     = {{CARMEN immunopeptidomics pipeline}},
+  month     = {jan},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.18248785},
+  url       = {https://doi.org/10.5281/zenodo.18248785},
 }
 ```
 
